@@ -24,7 +24,7 @@ int main(){
     else {
         for(n=0;n<k;n++){
             fseek(f, 7+n*122L, SEEK_CUR);
-            printf("时间为：");
+            printf("GPRMC时间为：");
             for (i=0;i<6;i++){
                 fscanf(f,"%c",&time[i]);
                 printf("%c",time[i]);
@@ -32,7 +32,7 @@ int main(){
             fseek(f, 0L, SEEK_SET);
             printf("\n");
             fseek(f, 7+n*122L, SEEK_CUR);
-            fprintf(t,"%s\n",time);
+            fprintf(t,"%s",time);
             fseek(f, 0L, SEEK_SET);
             
             
@@ -51,7 +51,7 @@ int main(){
             
             
             fseek(p, 70+n*122L, SEEK_CUR);
-            printf("时间为：");
+            printf("GPGGA时间为：");
             for (i=0;i<6;i++){
                 fscanf(p,"%c",&time[i]);
                 printf("%c",time[i]);
@@ -59,7 +59,7 @@ int main(){
             fseek(p, 0L, SEEK_SET);
             printf("\n");
             fseek(p, 70+n*122L, SEEK_CUR);
-            fprintf(t,"%s\n",time);
+            fprintf(t,"%s",time);
             fseek(p, 0L, SEEK_SET);
             
             
