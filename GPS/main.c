@@ -8,8 +8,47 @@
 
 #include <stdio.h>
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+#include <stdio.h>
+int main(){
+    int i,n,k;
+    char DLOfGPRMCNumber[24],DLOfGPGGANumber[24];
+    FILE *f,*p,*t;
+    f = fopen ("//Users//a20161104615//Desktop//GPS//GPS.txt","r+");
+    p = fopen ("//Users//a20161104615//Desktop//GPS//GPS.txt","r+");
+    t = fopen ("//Users//a20161104615//Desktop//GPS//GPS.csv","w");
+    printf("请输入输出行数：");
+    scanf("%d",&k);
+    if (f==NULL&&p==NULL){
+        printf("文件打开失败!\n");
+    }
+    else {
+        for(n=0;n<k;n++){
+            fseek(f, 16+n*122L, SEEK_CUR);
+            printf("GPRMC的经纬度为：");
+            for (i=0;i<22;i++){
+                fscanf(f,"%c",&DLOfGPRMCNumber[i]);
+                printf("%c",DLOfGPRMCNumber[i]);
+            }
+            fseek(f,0L,SEEK_SET);
+            printf("\n");
+            fseek(f, 16+n*122L, SEEK_CUR);
+            fprintf(t,"%s\n",DLOfGPRMCNumber);
+            fseek(f,0L,SEEK_SET);
+            fseek(p, 77+n*122L, SEEK_CUR);
+            printf("GPGGA的经纬度为：");
+            for (i=0;i<22;i++){
+                fscanf(p,"%c",&DLOfGPGGANumber[i]);
+                printf("%c",DLOfGPGGANumber[i]);
+            }
+            fseek(p,0L,SEEK_SET);
+            printf("\n");
+            fseek(p, 78+n*122L, SEEK_CUR);
+            fprintf(t,"%s\n",DLOfGPGGANumber);
+            fseek(p,0L,SEEK_SET);
+        } 
+        fclose(f);
+        fclose(p);
+    }
     return 0;
 }
+
