@@ -22,6 +22,7 @@ int main(){
         printf("文件打开失败!\n");
     }
     else {
+        fprintf(t,"时间,经度,经度,纬度,维度\n");
             for(n=0;n<k;n++){
                 fseek(f, 7+n*122L, SEEK_CUR);
                 printf("GPRMC时间为：");
@@ -32,12 +33,11 @@ int main(){
                 fseek(f, 0L, SEEK_SET);
                 printf("\n");
                 fseek(f, 7+n*122L, SEEK_CUR);
-                fprintf(t,"%s",time);
+                fprintf(t,"%s,",time);
                 fseek(f, 0L, SEEK_SET);
                 
                 
                 fseek(f, 16+n*122L, SEEK_CUR);
-                fprintf(t,"%s",time);
                 printf("GPRMC的经纬度为：");
                 for (i=0;i<22;i++){
                     fscanf(f,"%c",&DLOfGPRMCNumber[i]);
@@ -46,7 +46,7 @@ int main(){
                 fseek(f,0L,SEEK_SET);
                 printf("\n");
                 fseek(f, 16+n*122L, SEEK_CUR);
-                fprintf(t,"%s\n",DLOfGPRMCNumber);
+                fprintf(t,"%s,\n",DLOfGPRMCNumber);
                 fseek(f,0L,SEEK_SET);
                 
                 
@@ -59,7 +59,7 @@ int main(){
                 fseek(p, 0L, SEEK_SET);
                 printf("\n");
                 fseek(p, 70+n*122L, SEEK_CUR);
-                fprintf(t,"%s",time);
+                fprintf(t,"%s,",time);
                 fseek(p, 0L, SEEK_SET);
                 
                 
@@ -72,7 +72,7 @@ int main(){
                 fseek(p,0L,SEEK_SET);
                 printf("\n");
                 fseek(p, 78+n*122L, SEEK_CUR);
-                fprintf(t,"%s\n",DLOfGPGGANumber);
+                fprintf(t,"%s,\n",DLOfGPGGANumber);
                 fseek(p,0L,SEEK_SET);
         } 
         fclose(f);
