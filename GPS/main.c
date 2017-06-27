@@ -22,7 +22,7 @@ int main(){
         printf("文件打开失败!\n");
     }
     else {
-        fprintf(t,"时间,纬度,N/S,经度,E/W,日期\n");
+        fprintf(t,"时间,日期,纬度,N/S,经度,E/W\n");
             for(n=0;n<k;n++){
                 fseek(f, 7+n*122L, SEEK_CUR);
                 printf("GPRMC时间为：");
@@ -34,16 +34,6 @@ int main(){
                 fseek(f, 0L, SEEK_SET);
                 printf("\n");
                 
-                fseek(f, 16+n*122L, SEEK_CUR);
-                printf("GPRMC的经纬度为：");
-                for (i=0;i<22;i++){
-                    fscanf(f,"%c",&DLOfGPRMCNumber[i]);
-                    printf("%c",DLOfGPRMCNumber[i]);
-                }
-                fprintf(t,"%s,",DLOfGPRMCNumber);
-                fseek(f,0L,SEEK_SET);
-                printf("\n");
-                
                 
                 fseek(f, 51+n*122L, SEEK_CUR);
                 printf("GPRMC日期为：");
@@ -51,8 +41,19 @@ int main(){
                     fscanf(f,"%c",&date[i]);
                     printf("%c",date[i]);
                 }
-                fprintf(t,"%s,\n",date);
+                fprintf(t,"%s,",date);
                 fseek(f, 0L, SEEK_SET);
+                printf("\n");
+                
+                
+                fseek(f, 16+n*122L, SEEK_CUR);
+                printf("GPRMC的经纬度为：");
+                for (i=0;i<22;i++){
+                    fscanf(f,"%c",&DLOfGPRMCNumber[i]);
+                    printf("%c",DLOfGPRMCNumber[i]);
+                }
+                fprintf(t,"%s,\n",DLOfGPRMCNumber);
+                fseek(f,0L,SEEK_SET);
                 printf("\n");
                 
                 
@@ -74,7 +75,7 @@ int main(){
                     fscanf(p,"%c",&DLOfGPGGANumber[i]);
                     printf("%c",DLOfGPGGANumber[i]);
                 }
-                fprintf(t,"%s,\n",DLOfGPGGANumber);
+                fprintf(t,",%s,\n",DLOfGPGGANumber);
                 fseek(p,0L,SEEK_SET);
                 printf("\n");
         }
